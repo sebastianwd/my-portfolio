@@ -1,0 +1,32 @@
+---
+import '@fontsource/la-belle-aurore'
+import '@fontsource/ia-writer-mono/400.css'
+import '@fontsource/ia-writer-mono/700.css'
+import '../index.css'
+import 'animate.css'
+
+interface Props {
+  title: string
+}
+
+import { ViewTransitions, fade } from 'astro:transitions'
+import Navigation from '../components/Navigation.astro'
+const { title } = Astro.props
+---
+
+<html lang='en' class='bg-surface-800 text-surface-50'>
+  <head>
+    <meta charset='utf-8' />
+    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
+    <meta name='viewport' content='width=device-width' />
+    <meta name='generator' content={Astro.generator} />
+    <title>{title}</title>
+    <ViewTransitions fallback='animate' />
+  </head>
+  <body class='container mx-auto lg:max-w-6xl'>
+    <Navigation />
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

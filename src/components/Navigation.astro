@@ -1,0 +1,39 @@
+---
+import { twMerge } from 'tailwind-merge'
+const pathname = new URL(Astro.request.url).pathname
+
+const routes = [
+  {
+    path: '/',
+    title: 'Home',
+  },
+  {
+    path: '/blog/',
+    title: 'Blog',
+  },
+]
+---
+
+<div class='mx-auto w-fit pt-8'>
+  <nav class='flex'>
+    {
+      routes.map((route) => {
+        const isActive =
+          route.path === '/'
+            ? pathname === route.path
+            : pathname.includes(route.path)
+        return (
+          <a
+            class={twMerge(
+              'rounded-full bg-surface-700 px-4 py-1 ',
+              isActive && 'bg-surface-600'
+            )}
+            href={route.path}
+          >
+            {route.title}
+          </a>
+        )
+      })
+    }
+  </nav>
+</div>
