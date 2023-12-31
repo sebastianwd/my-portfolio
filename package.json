@@ -15,6 +15,7 @@
     "@astrojs/react": "^3.0.9",
     "@astrojs/rss": "^4.0.1",
     "@astrojs/tailwind": "^5.0.4",
+    "@astrojs/vercel": "^6.1.1",
     "@fontsource/ia-writer-mono": "^5.0.7",
     "@fontsource/la-belle-aurore": "^5.0.18",
     "@splinetool/react-spline": "^2.2.6",
