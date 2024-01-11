@@ -45,7 +45,3 @@ export const POST: APIRoute = async ({ params, request }) => {
     return new Response(JSON.stringify({ message: 'ok' }))
   }
 }
-
-export const config = {
-  runtime: 'edge',
-}
