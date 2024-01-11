@@ -1,4 +1,6 @@
 import Spline from '@splinetool/react-spline'
+import { Delay } from './WordAnimator'
+import { Suspense } from 'react'
 
 interface Props {
   sceneUrl: string
@@ -6,5 +8,9 @@ interface Props {
 }
 
 export const SplineRender = (props: Props) => {
-  return <Spline className={props.className} scene={props.sceneUrl} />
+  return (
+    <Suspense>
+      <Spline className={props.className} scene={props.sceneUrl} />
+    </Suspense>
+  )
 }

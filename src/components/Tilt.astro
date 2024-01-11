@@ -1,0 +1,13 @@
+---
+import { twMerge } from 'tailwind-merge'
+
+interface Props {
+  className?: string
+}
+
+const { className } = Astro.props
+---
+
+<div data-tilt-lib class={twMerge(className, '[transform-style:preserve-3d]')}>
+  <slot />
+</div>

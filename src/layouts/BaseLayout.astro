@@ -9,12 +9,12 @@ interface Props {
   title: string
 }
 
-import { ViewTransitions, fade } from 'astro:transitions'
+import { ViewTransitions } from 'astro:transitions'
 import Navigation from '../components/Navigation.astro'
 const { title } = Astro.props
 ---
 
-<html lang='en' class='bg-surface-800 text-surface-50'>
+<html lang='en' class='overflow-x-clip bg-surface-800 text-surface-50'>
   <head>
     <meta charset='utf-8' />
     <link rel='icon' type='image/svg+xml' href='/favicon.svg' />

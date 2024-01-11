@@ -6,7 +6,7 @@ interface DelayProps {
   children: React.ReactNode
 }
 
-const Delay = (props: DelayProps) => {
+export const Delay = (props: DelayProps) => {
   const { waitBeforeShow, children } = props
 
   const [hidden, setHidden] = useState(true)
@@ -55,7 +55,7 @@ const Character = memo((props: CharacterProps) => {
   )
 })
 
-export const WordAnimator = (props: WordAnimatorProps) => {
+export const WordAnimator: React.FC<WordAnimatorProps> = (props) => {
   const {
     delay = 60,
     words,
@@ -72,7 +72,10 @@ export const WordAnimator = (props: WordAnimatorProps) => {
     >
       {words.split('').map((character, index) => {
         return (
-          <Delay waitBeforeShow={index * delay} key={String(character + index)}>
+          <Delay
+            waitBeforeShow={(index + 1) * delay}
+            key={String(character + index)}
+          >
             <Character char={character === ' ' ? `\u00A0` : character} />
           </Delay>
         )
