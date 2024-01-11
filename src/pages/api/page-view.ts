@@ -4,23 +4,13 @@ import type { APIRoute } from 'astro'
 
 const redis = Redis.fromEnv()
 
-export const GET: APIRoute = () => {
-  return new Response(
-    JSON.stringify({
-      greeting: 'Hello',
-    })
-  )
-}
-
 export const POST: APIRoute = async ({ params, request }) => {
   const { slug } = await new Response(request.body).json()
 
   const { flag, country, city, latitude, longitude } = geolocation(request)
 
   if (!(flag && country && city && latitude && longitude && slug)) {
-    return new Response(
-      JSON.stringify({ message: 'Missing required parameters' })
-    )
+    return Response.json({ message: 'Missing required parameters' })
   } else {
     const uniqueViewsKey = [
       'portfolio',
@@ -47,11 +37,15 @@ export const POST: APIRoute = async ({ params, request }) => {
     )
 
     if (!isNew) {
-      return new Response(JSON.stringify({ message: 'ok' }))
+      return Response.json({ message: 'Ok!' })
     }
 
     await redis.incr(['portfolio', 'total-views', slug].join(':'))
 
-    return new Response(JSON.stringify({ message: 'ok' }))
+    return Response.json({ message: 'Ok!' })
   }
+}
+
+export const config = {
+  runtime: 'edge',
 }

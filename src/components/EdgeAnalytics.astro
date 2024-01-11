@@ -9,7 +9,7 @@ const { slug } = Astro.props
       super()
       ;(() => {
         navigator.sendBeacon(
-          '/api/page-view.json',
+          '/api/page-view',
           JSON.stringify({ slug: this.dataset.slug })
         )
       })()

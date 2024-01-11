@@ -3,7 +3,7 @@ import useSWR from 'swr'
 
 export const SpotifyActivity = () => {
   const { data, error, isLoading } = useSWR(
-    '/api/spotify.json',
+    '/api/spotify',
     (...args) => fetch(...args).then((res) => res.json()),
     {
       refreshInterval: 60000,
