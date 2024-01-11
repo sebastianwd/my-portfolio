@@ -37,12 +37,12 @@ export const POST: APIRoute = async ({ params, request }) => {
     )
 
     if (!isNew) {
-      return Response.json({ message: 'ok' })
+      return new Response.json({ message: 'ok' })
     }
 
     await redis.incr(['portfolio', 'total-views', slug].join(':'))
 
-    return Response.json({ message: 'ok' })
+    return new Response.json({ message: 'ok' })
   }
 }
 
