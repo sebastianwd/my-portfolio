@@ -18,7 +18,9 @@ export const POST: APIRoute = async ({ params, request }) => {
   const { flag, country, city, latitude, longitude } = geolocation(request)
 
   if (!(flag && country && city && latitude && longitude && slug)) {
-    return new Response({ message: 'Missing required parameters' })
+    return new Response(
+      JSON.stringify({ message: 'Missing required parameters' })
+    )
   } else {
     const uniqueViewsKey = [
       'portfolio',
