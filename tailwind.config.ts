@@ -35,6 +35,12 @@ export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
+      dropShadow: ({ theme }) => ({
+        primary: `0 0 12px ${theme('colors.primary.DEFAULT')}`,
+      }),
+      textUnderlineOffset: {
+        3: '3px',
+      },
       animation: {
         swipeUp: 'swipeUp 1.8s infinite ease-in-out',
       },

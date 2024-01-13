@@ -1,0 +1,49 @@
+---
+interface Props {
+  selector?: string
+}
+
+const { selector } = Astro.props
+---
+
+<underline-rainbow data-selector={selector}><slot /></underline-rainbow>
+<script>
+  import { underlineColors } from '../utils/constants'
+
+  class UnderlineRainbow extends HTMLElement {
+    constructor() {
+      super()
+
+      const child = this.querySelectorAll(this.dataset.selector || 'span')
+
+      if (child.length === 0) {
+        console.warn('No child element found')
+        return
+      }
+
+      child.forEach((element) => {
+        element.setAttribute('data-underline-rainbow', '')
+
+        element.classList.add(
+          underlineColors[Math.floor(Math.random() * underlineColors.length)],
+          'underline',
+          'decoration-2',
+          'underline-offset-2'
+        )
+
+        element.addEventListener('mouseenter', () => {
+          const elements = document.querySelectorAll('[data-underline-rainbow]')
+          elements.forEach((element) => {
+            element.classList.remove(...underlineColors)
+            element.classList.add(
+              underlineColors[
+                Math.floor(Math.random() * underlineColors.length)
+              ]
+            )
+          })
+        })
+      })
+    }
+  }
+  customElements.define('underline-rainbow', UnderlineRainbow)
+</script>

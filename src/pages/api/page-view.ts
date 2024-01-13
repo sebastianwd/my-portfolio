@@ -5,6 +5,7 @@ import type { APIRoute } from 'astro'
 const redis = Redis.fromEnv()
 
 export const POST: APIRoute = async ({ params, request }) => {
+  const date = new Date()
   const { slug } = await new Response(request.body).json()
 
   const { flag, country, city, latitude, longitude } = geolocation(request)
@@ -13,8 +14,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     return Response.json({ message: 'Missing required parameters' })
   } else {
     const uniqueViewsKey = [
-      'portfolio',
-      'unique-views',
+      date,
       country,
       city.replace(/[^a-zA-Z ]/g, ' '),
       longitude,
@@ -22,13 +22,11 @@ export const POST: APIRoute = async ({ params, request }) => {
       slug,
     ].join(':')
 
-    await redis.set(uniqueViewsKey, true, {
-      nx: true,
-    })
+    await redis.sadd('portfolio-unique', uniqueViewsKey)
 
     // Deduplicate views, so that a single user can't increment the view count before the TTL expires
     const isNew = await redis.set(
-      ['deduplicate', uniqueViewsKey].join(''),
+      ['deduplicate', uniqueViewsKey].join(':'),
       true,
       {
         nx: true,
@@ -40,7 +38,7 @@ export const POST: APIRoute = async ({ params, request }) => {
       return Response.json({ message: 'Ok!' })
     }
 
-    await redis.incr(['portfolio', 'total-views', slug].join(':'))
+    await redis.incr(['portfolio-total', slug].join(':'))
 
     return Response.json({ message: 'Ok!' })
   }
