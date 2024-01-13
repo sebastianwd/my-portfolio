@@ -15,7 +15,7 @@ export const POST: APIRoute = async ({ params, request }) => {
     return Response.json({ message: 'Missing required parameters' })
   } else {
     const uniqueViewsKey = [
-      dayjs(date).format('L'),
+      dayjs(date).format('MM/DD/YYYY'),
       country,
       city.replace(/[^a-zA-Z ]/g, ' '),
       latitude,
