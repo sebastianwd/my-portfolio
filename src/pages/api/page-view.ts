@@ -1,6 +1,7 @@
 import { geolocation } from '@vercel/edge'
 import { Redis } from '@upstash/redis'
 import type { APIRoute } from 'astro'
+import dayjs from 'dayjs'
 
 const redis = Redis.fromEnv()
 
@@ -14,12 +15,11 @@ export const POST: APIRoute = async ({ params, request }) => {
     return Response.json({ message: 'Missing required parameters' })
   } else {
     const uniqueViewsKey = [
-      date,
+      dayjs(date).format('L'),
       country,
       city.replace(/[^a-zA-Z ]/g, ' '),
-      longitude,
       latitude,
-      slug,
+      longitude,
     ].join(':')
 
     await redis.sadd('portfolio-unique', uniqueViewsKey)
@@ -42,6 +42,15 @@ export const POST: APIRoute = async ({ params, request }) => {
 
     return Response.json({ message: 'Ok!' })
   }
+}
+
+export const GET: APIRoute = async ({ params }) => {
+  const { slug } = params
+  const total = await redis.get(['portfolio-total', slug].join(':'))
+
+  return Response.json({
+    total: total ? parseInt(total as string) : 0,
+  })
 }
 
 export const config = {
