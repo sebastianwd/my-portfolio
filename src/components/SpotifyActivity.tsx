@@ -6,7 +6,7 @@ export const SpotifyActivity = () => {
     '/api/spotify',
     (...args) => fetch(...args).then((res) => res.json()),
     {
-      refreshInterval: 60000,
+      refreshInterval: 120000,
     }
   )
 

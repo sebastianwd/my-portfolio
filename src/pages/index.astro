@@ -9,6 +9,8 @@ import nodejsIcon from '../assets/nodejs-icon.svg'
 import sqlIcon from '../assets/sql-icon.svg'
 import spotifyIcon from '../assets/spotify.svg'
 import project1Img from '../assets/project1.png'
+import project2Img from '../assets/project2.png'
+import project3Img from '../assets/project3.png'
 import linkedinIcon from '../assets/linkedin-icon.svg'
 import githubIcon from '../assets/github-icon.svg'
 import emailIcon from '../assets/email-icon.svg'
@@ -18,6 +20,7 @@ import EdgeAnalytics from '../components/EdgeAnalytics.astro'
 import { isProduction } from '../utils/constants'
 import { Social } from '../components/Social'
 import UnderlineRainbow from '../components/UnderlineRainbow.astro'
+import { PageViews } from '../components/PageViews'
 
 const pageTitle = "Hi, I'm Sebastian"
 
@@ -40,6 +43,8 @@ const techs = [
   },
 ]
 
+const githubUrl = 'aHR0cHM6Ly93d3cuZ2l0aHViLmNvbS9zZWJhc3RpYW53ZA=='
+
 const links = [
   {
     value: 'LinkedIn',
@@ -49,7 +54,7 @@ const links = [
   },
   {
     value: 'GitHub',
-    url: 'aHR0cHM6Ly93d3cuZ2l0aHViLmNvbS9zZWJhc3RpYW53ZA==',
+    url: githubUrl,
     type: 'url',
     icon: githubIcon,
   },
@@ -69,10 +74,16 @@ const projects = [
     url: 'https://github.com/sebastianwd/elevenfm',
   },
   {
-    value: 'ElevenFM',
-    img: project1Img,
-    description: 'Listen to music for free without ads',
-    url: 'https://github.com/sebastianwd/elevenfm',
+    value: 'YT Downloader',
+    img: project2Img,
+    description: 'Download videos from youtube',
+    url: 'https://github.com/sebastianwd/youtube-downloader',
+  },
+  {
+    value: 'Dog breed classifier',
+    img: project3Img,
+    description: 'Identify dog breeds using Tensorflow',
+    url: 'https://github.com/sebastianwd/dog-breed-classifier',
   },
 ]
 ---
@@ -137,7 +148,7 @@ const projects = [
       />
       <p class='font-iamono text-base'>
         Hi there! My name is Sebastian and I’m a developer with over 5 years of
-        experience working with web technologies. My main expertise is
+        work experience using web technologies. My main expertise are
         <UnderlineRainbow>
           <span>React.js</span>
           and
@@ -153,6 +164,7 @@ const projects = [
       </p>
       <ul class='list-inside list-disc font-iamono text-base'>
         <li>Adding features to production e-commerce sites</li>
+        <li>Next.js with SSR/SSG</li>
         <li>Mobile apps with React Native</li>
         <li>GraphQL</li>
         <li>CSS animations</li>
@@ -165,11 +177,15 @@ const projects = [
         the moment I’m learning Python and generative AI with pytorch.
       </p>
     </div>
-    <div class='flex h-fit flex-col gap-3 rounded-2xl bg-surface-700 p-6'>
-      <img src={spotifyIcon.src} class='h-9 w-fit object-cover' />
-      <SpotifyActivity client:load />
+    <div class='flex flex-col gap-6'>
+      <div class='flex h-fit flex-col gap-3 rounded-2xl bg-surface-700 p-6'>
+        <img src={spotifyIcon.src} class='h-9 w-fit object-cover' />
+        <SpotifyActivity client:load />
+      </div>
+      <div class='flex h-fit flex-col rounded-2xl bg-surface-700 p-6'>
+        <PageViews client:load />
+      </div>
     </div>
-
     <div class='flex flex-col gap-3 rounded-2xl bg-surface-700 p-6'>
       <WordAnimator
         delay={200}
@@ -178,27 +194,37 @@ const projects = [
         words='> Projects'
         tag='h2'
       />
-      <div class='mt-2 grid gap-4 md:grid-cols-2'>
+      <p class='font-iamono'>
+        Check more on my <UnderlineRainbow selector='a'>
+          <a href={atob(githubUrl)} target='_blank' rel='noopener noreferrer'
+            >Github</a
+          >.
+        </UnderlineRainbow>
+      </p>
+      <div class='mt-4 grid gap-x-8 gap-y-6 md:grid-cols-2'>
         {
           projects.map((project) => {
             return (
               <a
                 href={project.url}
                 target='_blank'
-                class='relative w-fit max-w-full'
+                rel='noopener noreferrer'
+                class='relative w-full'
               >
                 <Tilt>
-                  <div class='bg-gradient-blend bg-top bg-no-repeat'>
+                  <div class='bg-gradient-blend max-w-[80%] bg-top bg-no-repeat'>
                     <img
                       src={project.img.src}
-                      class='h-36 min-w-0 object-cover'
+                      class='h-36 min-w-0 rounded-md object-cover'
                     />
                   </div>
-                  <div class='absolute inset-1/2 h-fit w-4/5 [transform:translateZ(20px)]'>
-                    <h3 class='font-iamono text-lg font-bold'>
+                  <div class='absolute left-1/4 top-1/2 h-fit  [transform:translateZ(20px)]'>
+                    <h3 class='font-iamono text-lg font-bold shadow-surface-700 text-shadow-lg'>
                       {project.value}
                     </h3>
-                    <p class='font-iamono text-sm'>{project.description}</p>
+                    <p class='font-iamono text-sm shadow-surface-700 text-shadow-lg'>
+                      {project.description}
+                    </p>
                   </div>
                 </Tilt>
               </a>

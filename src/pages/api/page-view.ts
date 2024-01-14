@@ -3,9 +3,12 @@ import { Redis } from '@upstash/redis'
 import type { APIRoute } from 'astro'
 import dayjs from 'dayjs'
 
-const redis = Redis.fromEnv()
+const redis = new Redis({
+  url: import.meta.env.UPSTASH_REDIS_REST_URL,
+  token: import.meta.env.UPSTASH_REDIS_REST_TOKEN,
+})
 
-export const POST: APIRoute = async ({ params, request }) => {
+export const POST: APIRoute = async ({ request }) => {
   const date = new Date()
   const { slug } = await new Response(request.body).json()
 
@@ -20,6 +23,7 @@ export const POST: APIRoute = async ({ params, request }) => {
       city.replace(/[^a-zA-Z ]/g, ' '),
       latitude,
       longitude,
+      slug,
     ].join(':')
 
     await redis.sadd('portfolio-unique', uniqueViewsKey)
@@ -44,13 +48,25 @@ export const POST: APIRoute = async ({ params, request }) => {
   }
 }
 
-export const GET: APIRoute = async ({ params }) => {
-  const { slug } = params
-  const total = await redis.get(['portfolio-total', slug].join(':'))
+export const GET: APIRoute = async ({ request }) => {
+  const { searchParams } = new URL(request.url)
 
-  return Response.json({
-    total: total ? parseInt(total as string) : 0,
-  })
+  const total = await redis.get(
+    ['portfolio-total', searchParams.get('slug')].join(':')
+  )
+  const unique = await redis.scard('portfolio-unique')
+
+  return Response.json(
+    {
+      total: total ? parseInt(total as string) : 0,
+      unique: unique ? unique : 0,
+    },
+    {
+      headers: {
+        'Cache-Control': 'public, max-age=43200',
+      },
+    }
+  )
 }
 
 export const config = {
