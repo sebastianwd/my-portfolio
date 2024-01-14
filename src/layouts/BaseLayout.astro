@@ -4,6 +4,8 @@ import '@fontsource/ia-writer-mono/400.css'
 import '@fontsource/ia-writer-mono/700.css'
 import '../index.css'
 import 'animate.css'
+import { SEO } from 'astro-seo'
+import metaImg from '../assets/cover.png'
 
 interface Props {
   title: string
@@ -17,11 +19,37 @@ const { title } = Astro.props
 <html lang='en' class='overflow-x-clip bg-surface-800 text-surface-50'>
   <head>
     <meta charset='utf-8' />
-    <link rel='icon' type='image/svg+xml' href='/favicon.svg' />
     <meta name='viewport' content='width=device-width' />
     <meta name='generator' content={Astro.generator} />
-    <title>{title}</title>
     <ViewTransitions fallback='animate' />
+    <SEO
+      title={title}
+      description='Systems Engineer and Full Stack Web Developer'
+      openGraph={{
+        basic: {
+          title: title,
+          type: 'website',
+          image: metaImg.src,
+        },
+      }}
+      twitter={{
+        creator: '@sebastianwd',
+      }}
+      extend={{
+        link: [{ rel: 'icon', href: '/favicon.ico' }],
+        meta: [
+          {
+            name: 'twitter:image',
+            content: metaImg.src,
+          },
+          { name: 'twitter:title', content: title },
+          {
+            name: 'twitter:description',
+            content: 'Systems Engineer and Full Stack Web Developer',
+          },
+        ],
+      }}
+    />
   </head>
   <body class='container mx-auto lg:max-w-6xl'>
     <Navigation />
