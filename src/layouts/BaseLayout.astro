@@ -16,7 +16,7 @@ import Navigation from '../components/Navigation.astro'
 const { title } = Astro.props
 ---
 
-<html lang='en' class='overflow-x-clip bg-surface-800 text-surface-50'>
+<html lang='en' class='overflow-x-hidden bg-surface-800 text-surface-50'>
   <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width' />
@@ -53,7 +53,7 @@ const { title } = Astro.props
   </head>
   <body class='container mx-auto lg:max-w-6xl'>
     <Navigation />
-    <main>
+    <main class='overflow-x-hidden'>
       <slot />
     </main>
   </body>
