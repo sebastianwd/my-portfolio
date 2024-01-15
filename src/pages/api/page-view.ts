@@ -18,7 +18,6 @@ export const POST: APIRoute = async ({ request }) => {
     return Response.json({ message: 'Missing required parameters' })
   } else {
     const uniqueViewsKey = [
-      dayjs(date).format('MM/DD/YYYY'),
       country,
       city.replace(/[^a-zA-Z ]/g, ' '),
       latitude,
@@ -26,11 +25,16 @@ export const POST: APIRoute = async ({ request }) => {
       slug,
     ].join(':')
 
+    const totalViewsKey = [
+      dayjs(date).format('MM/DD/YYYY'),
+      ...uniqueViewsKey,
+    ].join(':')
+
     await redis.sadd('portfolio-unique', uniqueViewsKey)
 
     // Deduplicate views, so that a single user can't increment the view count before the TTL expires
     const isNew = await redis.set(
-      ['deduplicate', uniqueViewsKey].join(':'),
+      ['deduplicate', totalViewsKey].join(':'),
       true,
       {
         nx: true,
@@ -63,7 +67,7 @@ export const GET: APIRoute = async ({ request }) => {
     },
     {
       headers: {
-        'Cache-Control': 'public, max-age=43200',
+        'Cache-Control': 'public, max-age=21600',
       },
     }
   )
