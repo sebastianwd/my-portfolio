@@ -1,5 +1,6 @@
 import { Suspense, useRef, useState } from 'react'
 import useSWR from 'swr'
+import { twMerge } from 'tailwind-merge'
 
 export const SpotifyActivity = () => {
   const { data, error, isLoading } = useSWR(
@@ -14,34 +15,42 @@ export const SpotifyActivity = () => {
   const containerRef = useRef<HTMLDivElement>(null)
 
   const [animationDuration, setAnimationDuration] = useState<string>()
+  const [animationEnablerClass, setAnimationEnablerClass] = useState<
+    'animate-marquee' | 'overflow-clip'
+  >('overflow-clip')
+  const [animationPaused, setAnimationPaused] = useState(false)
 
   const onMouseEnter = () => {
     if (!scrollTextRef.current || !containerRef.current) {
       return
     }
+    if (animationEnablerClass === 'animate-marquee') {
+      setAnimationPaused(true)
+      return
+    }
+
     const totalTextWidth = scrollTextRef.current.scrollWidth
     const visibleTextWidth = scrollTextRef.current.offsetWidth
-
-    console.log(
-      'messageWidth',
-      totalTextWidth,
-      containerRef.current.offsetWidth
-    )
 
     if (!(totalTextWidth > scrollTextRef.current.offsetWidth)) {
       document.documentElement.style.setProperty('--marquee-x', `0px`)
       return
     }
 
+    const SPEED = 3
+    const OFFSET = 10
+
     const distance = totalTextWidth + containerRef.current.offsetWidth
-    const duration = 4 * distance
+    const duration = SPEED * distance
 
     document.documentElement.style.setProperty(
       '--marquee-x',
-      `${-(totalTextWidth - visibleTextWidth) - 20}px`
+      `${-(totalTextWidth - visibleTextWidth) - OFFSET}px`
     )
 
+    setAnimationPaused(false)
     setAnimationDuration(`${duration}ms`)
+    setAnimationEnablerClass('animate-marquee')
   }
 
   return (
@@ -60,12 +69,26 @@ export const SpotifyActivity = () => {
                 <div
                   className='group overflow-clip'
                   onMouseEnter={onMouseEnter}
+                  onMouseOut={() => {
+                    setAnimationPaused(false)
+                  }}
                 >
                   <p
                     title={data.song}
-                    className='max-w-full overflow-clip text-ellipsis whitespace-nowrap font-iamono font-bold group-hover:animate-marquee group-hover:overflow-visible'
+                    className={twMerge(
+                      `max-w-full text-ellipsis whitespace-nowrap font-iamono font-bold group-hover:overflow-visible`,
+                      animationEnablerClass
+                    )}
+                    onAnimationEnd={() => {
+                      setAnimationEnablerClass('overflow-clip')
+                      setAnimationPaused(false)
+                    }}
                     style={{
                       animationDuration: animationDuration,
+                      animationIterationCount: 2,
+                      animationPlayState: animationPaused
+                        ? 'paused'
+                        : 'running',
                     }}
                     ref={scrollTextRef}
                   >
