@@ -32,7 +32,8 @@ export const SpotifyActivity = () => {
     const totalTextWidth = scrollTextRef.current.scrollWidth
     const visibleTextWidth = scrollTextRef.current.offsetWidth
 
-    if (!(totalTextWidth > scrollTextRef.current.offsetWidth)) {
+    const isOverflowing = totalTextWidth > visibleTextWidth
+    if (!isOverflowing) {
       document.documentElement.style.setProperty('--marquee-x', `0px`)
       return
     }
