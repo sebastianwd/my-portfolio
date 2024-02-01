@@ -45,10 +45,7 @@ export const ScrollyText = (props: ScrollyTextProps) => {
     const distance = totalTextWidth - visibleTextWidth + OFFSET
     const duration = BASE_TIME * distance
 
-    scrollTextRef.current.style.setProperty(
-      '--marquee-x',
-      `${-(distance + OFFSET)}px`
-    )
+    scrollTextRef.current.style.setProperty('--marquee-x', `${-distance}px`)
 
     setAnimationDuration(`${duration}ms`)
     setAnimationEnablerClass(animationClassName)

@@ -18,7 +18,6 @@ export const SpotifyActivity = () => {
       {error && <div>Error: {error}</div>}
       {data && (
         <>
-          <div className='absolute w-full' />
           <div className='flex gap-3 md:flex-wrap lg:flex-nowrap'>
             <div className='mr-auto flex min-w-0 flex-col'>
               <h2 className='mb-1 font-clvtc text-2xl text-primary'>
