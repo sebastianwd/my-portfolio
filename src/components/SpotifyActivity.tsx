@@ -12,20 +12,21 @@ export const SpotifyActivity = () => {
   )
 
   const scrollTextRef = useRef<HTMLParagraphElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
 
   const [animationDuration, setAnimationDuration] = useState<string>()
   const [animationEnablerClass, setAnimationEnablerClass] = useState<
     'animate-marquee' | 'overflow-clip'
   >('overflow-clip')
-  const [animationPaused, setAnimationPaused] = useState(false)
+  // prevents the animation from pausing the first time it's hovered
+  const [timesHovered, setTimesHovered] = useState(0)
 
   const onMouseEnter = () => {
-    if (!scrollTextRef.current || !containerRef.current) {
+    if (!scrollTextRef.current) {
       return
     }
+
+    setTimesHovered((prev) => prev + 1)
     if (animationEnablerClass === 'animate-marquee') {
-      setAnimationPaused(true)
       return
     }
 
@@ -38,21 +39,22 @@ export const SpotifyActivity = () => {
       return
     }
 
-    const SPEED = 3
+    const BASE_TIME = 25
     const OFFSET = 10
 
-    const distance = totalTextWidth + containerRef.current.offsetWidth
-    const duration = SPEED * distance
+    const distance = totalTextWidth - visibleTextWidth + OFFSET
+    const duration = BASE_TIME * distance
 
     document.documentElement.style.setProperty(
       '--marquee-x',
-      `${-(totalTextWidth - visibleTextWidth) - OFFSET}px`
+      `${-distance - OFFSET}px`
     )
 
-    setAnimationPaused(false)
     setAnimationDuration(`${duration}ms`)
     setAnimationEnablerClass('animate-marquee')
   }
+
+  const isAnimating = animationEnablerClass === 'animate-marquee'
 
   return (
     <Suspense>
@@ -60,7 +62,7 @@ export const SpotifyActivity = () => {
       {error && <div>Error: {error}</div>}
       {data && (
         <>
-          <div className='absolute w-full' ref={containerRef} />
+          <div className='absolute w-full' />
           <div className='flex gap-3 md:flex-wrap lg:flex-nowrap'>
             <div className='mr-auto flex min-w-0 flex-col'>
               <h2 className='mb-1 font-clvtc text-2xl text-primary'>
@@ -70,26 +72,23 @@ export const SpotifyActivity = () => {
                 <div
                   className='group overflow-clip'
                   onMouseEnter={onMouseEnter}
-                  onMouseOut={() => {
-                    setAnimationPaused(false)
-                  }}
                 >
                   <p
                     title={data.song}
                     className={twMerge(
                       `max-w-full text-ellipsis whitespace-nowrap font-iamono font-bold group-hover:overflow-visible`,
-                      animationEnablerClass
+                      animationEnablerClass,
+                      isAnimating &&
+                        timesHovered > 1 &&
+                        'group-hover:[animation-play-state:paused]'
                     )}
                     onAnimationEnd={() => {
                       setAnimationEnablerClass('overflow-clip')
-                      setAnimationPaused(false)
+                      setTimesHovered(0)
                     }}
                     style={{
                       animationDuration: animationDuration,
                       animationIterationCount: 2,
-                      animationPlayState: animationPaused
-                        ? 'paused'
-                        : 'running',
                     }}
                     ref={scrollTextRef}
                   >
