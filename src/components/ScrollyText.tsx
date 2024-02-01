@@ -19,31 +19,27 @@ export const ScrollyText = (props: ScrollyTextProps) => {
   const scrollTextRef = useRef<HTMLParagraphElement>(null)
 
   const onMouseEnter = () => {
-    if (!scrollTextRef.current) {
-      return
-    }
+    if (!scrollTextRef.current) return
 
     if (timesHovered <= 1) {
       setTimesHovered((prev) => prev + 1)
     }
-    if (animationEnablerClass === animationClassName) {
-      return
-    }
+    if (animationEnablerClass === animationClassName) return
 
     const totalTextWidth = scrollTextRef.current.scrollWidth
     const visibleTextWidth = scrollTextRef.current.offsetWidth
 
     const isOverflowing = totalTextWidth > visibleTextWidth
     if (!isOverflowing) {
-      document.documentElement.style.setProperty('--marquee-x', `0px`)
+      scrollTextRef.current.style.setProperty('--marquee-x', `0px`)
       return
     }
 
-    const BASE_TIME = timePerChar ?? 25
+    const TIME_MULTIPLIER = timePerChar ?? 25
     const OFFSET = 10
 
     const distance = totalTextWidth - visibleTextWidth + OFFSET
-    const duration = BASE_TIME * distance
+    const duration = TIME_MULTIPLIER * distance
 
     scrollTextRef.current.style.setProperty('--marquee-x', `${-distance}px`)
 
