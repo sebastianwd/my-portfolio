@@ -21,6 +21,7 @@ import { isProduction } from '../utils/constants'
 import { Social } from '../components/Social'
 import UnderlineRainbow from '../components/UnderlineRainbow.astro'
 import { PageViews } from '../components/PageViews'
+import { ScrollyText } from '../components/ScrollyText'
 
 const pageTitle = "Hi, I'm Sebastian"
 
@@ -178,7 +179,9 @@ const projects = [
       </p>
     </div>
     <div class='order-last flex flex-col gap-6 md:order-none'>
-      <div class='flex h-fit flex-col gap-3 rounded-2xl bg-surface-700 p-6'>
+      <div
+        class='relative flex h-fit flex-col gap-3 rounded-2xl bg-surface-700 p-6'
+      >
         <img src={spotifyIcon.src} class='h-9 w-fit object-cover' />
         <SpotifyActivity client:load />
       </div>

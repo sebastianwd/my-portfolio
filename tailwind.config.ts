@@ -48,6 +48,7 @@ export default {
       },
       animation: {
         swipeUp: 'swipeUp 1.8s infinite ease-in-out',
+        marquee: 'marquee linear alternate',
       },
       fontFamily: {
         belle: ['"La Belle Aurore", sans-serif'],
@@ -78,6 +79,10 @@ export default {
           '10%': { transform: 'translateY(0px)' },
           '90%': { transform: 'translateY(0px)' },
           '100%': { transform: 'translateY(44px)' },
+        },
+        marquee: {
+          from: { transform: 'translateX(0%)' },
+          '90%,100%': { transform: 'translateX(var(--marquee-x))' },
         },
       },
     },
