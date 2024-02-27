@@ -73,18 +73,22 @@ const projects = [
     img: project1Img,
     description: 'Listen to music for free without ads',
     url: 'https://github.com/sebastianwd/elevenfm',
+    tags: ['React', 'NodeJS', 'GraphQL'],
+  },
+  {
+    value: 'Pet breed classifier',
+    img: project3Img,
+    description:
+      'Identify dog and cat breeds using Python with Jupyter notebooks',
+    url: 'https://github.com/sebastianwd/fastai-pet-classifier',
+    tags: ['Tensorflow', 'React'],
   },
   {
     value: 'YT Downloader',
     img: project2Img,
     description: 'Download videos from youtube',
     url: 'https://github.com/sebastianwd/youtube-downloader',
-  },
-  {
-    value: 'Dog breed classifier',
-    img: project3Img,
-    description: 'Identify dog breeds using Tensorflow',
-    url: 'https://github.com/sebastianwd/dog-breed-classifier',
+    tags: ['React', 'NodeJS'],
   },
 ]
 ---
@@ -198,13 +202,13 @@ const projects = [
         tag='h2'
       />
       <p class='font-iamono'>
-        Check more on my <UnderlineRainbow selector='a'>
+        Personal projects. Check more on my <UnderlineRainbow selector='a'>
           <a href={atob(githubUrl)} target='_blank' rel='noopener noreferrer'
             >Github</a
           >.
         </UnderlineRainbow>
       </p>
-      <div class='mt-4 grid gap-x-8 gap-y-6 lg:grid-cols-2'>
+      <div class='mt-4 grid gap-x-8 gap-y-6'>
         {
           projects.map((project) => {
             return (
@@ -214,22 +218,33 @@ const projects = [
                 rel='noopener noreferrer'
                 class='relative w-full'
               >
-                <Tilt>
-                  <div class='bg-gradient-blend max-w-[80%] bg-top bg-no-repeat'>
-                    <img
-                      src={project.img.src}
-                      class='h-36 min-w-0 rounded-md object-cover'
-                    />
-                  </div>
-                  <div class='absolute left-1/4 top-1/2 h-fit  [transform:translateZ(20px)]'>
-                    <h3 class='font-iamono text-base font-bold shadow-surface-700 text-shadow-lg'>
+                <div class='grid lg:grid-cols-5'>
+                  <Tilt className='lg:col-span-3'>
+                    <div class='bg-gradient-blend bg-top bg-no-repeat'>
+                      <img
+                        src={project.img.src}
+                        class='min-w-0 rounded-md object-cover'
+                      />
+                    </div>
+                  </Tilt>
+                  <div class='z-10 my-auto -mt-6 flex min-h-36 flex-col rounded-lg bg-surface-800 p-6 shadow-xl lg:col-span-2 lg:-ml-10 lg:mt-auto'>
+                    <h3 class='mb-2 font-clvtc text-xl shadow-surface-700 text-shadow-lg'>
                       {project.value}
                     </h3>
-                    <p class='font-iamono text-sm shadow-surface-700 text-shadow-lg'>
+                    <p class='mb-auto font-iamono text-sm shadow-surface-700 text-shadow-lg'>
                       {project.description}
                     </p>
+                    <div class='mt-2'>
+                      {project.tags.map((tag) => {
+                        return (
+                          <span class='mr-2 inline-block font-iamono text-xs text-primary'>
+                            #{tag}
+                          </span>
+                        )
+                      })}
+                    </div>
                   </div>
-                </Tilt>
+                </div>
               </a>
             )
           })
@@ -253,8 +268,9 @@ const projects = [
       max: 25,
       speed: 400,
       transition: true,
-      perspective: 1000,
-      'max-glare': 0.5,
+      perspective: 800,
+      'max-glare': 0.2,
+      glare: true,
     })
   })
 </script>

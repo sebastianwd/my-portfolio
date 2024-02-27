@@ -16,7 +16,7 @@
     content: '';
     background: linear-gradient(
       to bottom,
-      transparent 80%,
+      transparent 0%,
       theme('colors.surface.700') 100%
     );
   }
