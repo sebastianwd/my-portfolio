@@ -19,7 +19,7 @@ function extractSpotifyData(html: string) {
 export const GET: APIRoute = async () => {
   const spotifyData = extractSpotifyData(
     await fetch(
-      'https://spotify-github-profile.vercel.app/api/view?uid=kodoku2&cover_image=true'
+      'https://spotify-github-profile.kittinanx.com/api/view?uid=kodoku2&cover_image=true'
     ).then((res) => res.text())
   )
 
