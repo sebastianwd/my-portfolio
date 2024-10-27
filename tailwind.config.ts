@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
 import plugin from 'tailwindcss/plugin'
+import twAnimate from 'tailwindcss-animate'
 
 type RootTheme = {
   ':root': Record<`--twdc-${string}`, string>
@@ -46,10 +47,7 @@ export default {
       textUnderlineOffset: {
         3: '3px',
       },
-      animation: {
-        swipeUp: 'swipeUp 1.8s infinite ease-in-out',
-        marquee: 'marquee linear alternate',
-      },
+
       fontFamily: {
         belle: ['"La Belle Aurore", sans-serif'],
         clvtc: ['clvtc, sans-serif'],
@@ -73,6 +71,11 @@ export default {
           900: 'var(--twdc-grayscale-900)',
         },
       } satisfies ExtendColors,
+      animation: {
+        swipeUp: 'swipeUp 1.8s infinite ease-in-out',
+        marquee: 'marquee linear alternate',
+        'audio-wave': 'audio-wave 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      },
       keyframes: {
         swipeUp: {
           '0%': { transform: 'translateY(-44px)' },
@@ -84,12 +87,23 @@ export default {
           from: { transform: 'translateX(0%)' },
           '90%,100%': { transform: 'translateX(var(--marquee-x))' },
         },
+        'audio-wave': {
+          '0%, 100%': {
+            height: '4px',
+            transform: 'translateY(11px)',
+          },
+          '50%': {
+            height: '26px',
+            transform: 'translateY(0px)',
+          },
+        },
       },
     },
   },
   plugins: [
     typography,
     themePlugin,
+    twAnimate,
     plugin(function ({ matchUtilities, theme }) {
       matchUtilities(
         {
@@ -98,6 +112,20 @@ export default {
           }),
         },
         { values: theme('textShadow') }
+      )
+    }),
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities(
+        {
+          'animation-delay': (value) => {
+            return {
+              'animation-delay': value,
+            }
+          },
+        },
+        {
+          values: theme('transitionDelay'),
+        }
       )
     }),
   ],

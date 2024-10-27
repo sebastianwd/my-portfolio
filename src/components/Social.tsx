@@ -18,7 +18,7 @@ export const Social = (props: Props) => {
       title={value}
       rel='noopener noreferrer'
       className={twMerge(
-        `block h-9 items-center transition-all hover:drop-shadow-primary`,
+        `animate__fadeIn animate__animated block h-9 items-center transition-all hover:drop-shadow-primary`,
         className
       )}
     >

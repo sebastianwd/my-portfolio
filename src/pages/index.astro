@@ -21,7 +21,7 @@ import { isProduction } from '../utils/constants'
 import { Social } from '../components/Social'
 import UnderlineRainbow from '../components/UnderlineRainbow.astro'
 import { PageViews } from '../components/PageViews'
-import { ScrollyText } from '../components/ScrollyText'
+import { WaveIcon } from '../components/icons/WaveIcon'
 
 const pageTitle = "Hi, I'm Sebastian"
 
@@ -110,12 +110,14 @@ const projects = [
       >
         {pageTitle}
       </WordAnimator>
-      <h2 class='mt-2 pr-2 font-iamono text-lg text-surface-200 md:pr-0'>
+      <h2
+        class='mt-2 text-balance pr-2 font-iamono text-lg text-surface-200 md:pr-0'
+      >
         Systems Engineer & Full Stack Web Developer specialized in JavaScript
         with experience in technologies like
-        <WordSpinner client:load items={techs} />
+        <WordSpinner client:load items={techs} className='min-w-24' />
       </h2>
-      <div class='mt-6 flex gap-6'>
+      <div class='mt-6 flex h-9 gap-6'>
         {
           links.map((link) => {
             return (
@@ -147,7 +149,7 @@ const projects = [
       <WordAnimator
         delay={200}
         client:load
-        className='font-clvtc text-4xl text-primary'
+        className='h-10 font-clvtc text-4xl text-primary'
         words='> About'
         tag='h2'
       />
@@ -190,7 +192,10 @@ const projects = [
       <div
         class='relative flex h-fit flex-col gap-3 rounded-2xl bg-surface-700 p-6'
       >
-        <img src={spotifyIcon.src} class='h-9 w-fit object-cover' />
+        <div class='flex items-end gap-2 text-primary'>
+          <img src={spotifyIcon.src} class='h-9 w-fit object-cover' />
+          <WaveIcon className='h-4 shrink-0' />
+        </div>
         <SpotifyActivity client:load />
       </div>
       <div class='flex h-fit flex-col rounded-2xl bg-surface-700 p-6'>
@@ -201,7 +206,7 @@ const projects = [
       <WordAnimator
         delay={200}
         client:visible
-        className='font-clvtc text-4xl text-primary'
+        className='h-10 font-clvtc text-4xl text-primary'
         words='> Projects'
         tag='h2'
       />

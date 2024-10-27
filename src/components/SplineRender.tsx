@@ -10,7 +10,10 @@ interface Props {
 export const SplineRender = (props: Props) => {
   return (
     <Suspense>
-      <Spline className={props.className} scene={props.sceneUrl} />
+      <Spline
+        className='animate__fadeIn animate__animated bg-transparent [&>canvas]:bg-transparent'
+        scene={props.sceneUrl}
+      />
     </Suspense>
   )
 }

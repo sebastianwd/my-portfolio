@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 interface Item {
   value: string
@@ -7,10 +8,11 @@ interface Item {
 
 interface WordSpinnerProps {
   items: Array<Item>
+  className?: string
 }
 
 export const WordSpinner = (props: WordSpinnerProps) => {
-  const { items } = props
+  const { items, className } = props
 
   const [active, setActive] = useState(0)
 
@@ -27,7 +29,12 @@ export const WordSpinner = (props: WordSpinnerProps) => {
   }
 
   return (
-    <div className='relative mb-0.5 inline-flex overflow-hidden align-middle'>
+    <div
+      className={twMerge(
+        'relative mb-0.5 inline-flex overflow-hidden align-middle',
+        className
+      )}
+    >
       <div
         className='flex animate-swipeUp items-center'
         onAnimationIteration={animateNext}
