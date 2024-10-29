@@ -17,10 +17,12 @@ function extractSpotifyData(html: string) {
 }
 
 export const GET: APIRoute = async () => {
+  if (!import.meta.env.SPOTIFY_URL) {
+    return new Response('Missing Spotify URL', { status: 500 })
+  }
+
   const spotifyData = extractSpotifyData(
-    await fetch(
-      'https://spotify-github-profile.kittinanx.com/api/view?uid=kodoku2&cover_image=true'
-    ).then((res) => res.text())
+    await fetch(import.meta.env.SPOTIFY_URL).then((res) => res.text())
   )
 
   return new Response(
