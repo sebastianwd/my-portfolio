@@ -12,6 +12,7 @@ interface Props {
 
 import { ViewTransitions } from 'astro:transitions'
 import Navigation from '../components/Navigation.astro'
+import { Dock } from '../components/Dock/Dock'
 const { title } = Astro.props
 ---
 
@@ -57,11 +58,10 @@ const { title } = Astro.props
       }}
     />
   </head>
-
-  <body class='container mx-auto lg:max-w-6xl'>
-    <Navigation />
+  <body class='container mx-auto lg:max-w-5xl'>
     <main class='overflow-clip'>
       <slot />
+      <Dock client:only='react' />
     </main>
   </body>
 </html>

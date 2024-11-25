@@ -1,0 +1,26 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { twMerge } from 'tailwind-merge'
+
+interface Props extends HTMLAttributes<'button'> {
+  variant?: 'primary' | 'secondary' | 'tertiary'
+}
+
+const { variant } = Astro.props
+
+const variantClasses = {
+  primary: 'bg-primary/50',
+  secondary: 'bg-neutral-700/50 ',
+  tertiary: 'bg-neutral-800',
+} as const
+---
+
+<button
+  class={twMerge(
+    'disabled:opacity-80 disabled:cursor-not-allowed shine flex w-fit items-center rounded-lg px-3 py-1.5 text-sm text-neutral-200 active:scale-95 hover:enabled:brightness-110 transition-all',
+    variantClasses[variant || 'primary']
+  )}
+  type='button'
+>
+  <slot />
+</button>

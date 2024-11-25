@@ -7,7 +7,7 @@ import reactIcon from '../assets/react-icon.svg'
 import graphqlIcon from '../assets/graphql-icon.svg'
 import nodejsIcon from '../assets/nodejs-icon.svg'
 import sqlIcon from '../assets/sql-icon.svg'
-import spotifyIcon from '../assets/spotify.svg'
+
 import project1Img from '../assets/project1.png'
 import project2Img from '../assets/project2.png'
 import project3Img from '../assets/project3.png'
@@ -21,9 +21,11 @@ import { isProduction } from '../utils/constants'
 import { Social } from '../components/Social'
 import UnderlineRainbow from '../components/UnderlineRainbow.astro'
 import { PageViews } from '../components/PageViews'
+import hatIcon from '../assets/hat.svg?raw'
 import { WaveIcon } from '../components/icons/WaveIcon'
+import Button from '../components/Button.astro'
 
-const pageTitle = "Hi, I'm Sebastian"
+const pageTitle = "I'm Sebastian"
 
 const techs = [
   {
@@ -94,12 +96,14 @@ const projects = [
 ---
 
 <BaseLayout title={pageTitle}>
-  <span class='px-6 font-belle text-surface-200 md:px-0'>{'<html>'}</span>
-  <span class='my-3 block px-10 font-belle text-surface-200'
+  <span class='mt-[5%] block px-6 font-belle text-surface-200 md:px-0'
+    >{'<html>'}</span
+  >
+  <span class='mb-[5%] mt-3 block pl-5 font-belle text-surface-200'
     >&#x3C;body&#x3E;</span
   >
   <div
-    class='relative grid px-6 md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_360px]'
+    class='relative grid pl-6 pr-2 md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_360px] lg:px-6'
   >
     <div>
       <WordAnimator
@@ -111,10 +115,14 @@ const projects = [
         {pageTitle}
       </WordAnimator>
       <h2
-        class='mt-2 text-balance pr-2 font-iamono text-lg text-surface-200 md:pr-0'
+        class='mt-2 pr-2 font-primary text-lg text-surface-200 md:pr-0 lg:text-balance'
       >
-        Systems Engineer & Full Stack Web Developer specialized in JavaScript
-        with experience in technologies like
+        <UnderlineRainbow>
+          <span>Systems Engineer </span>
+          & Full Stack
+          <span>Web Developer</span>
+        </UnderlineRainbow>
+        specialized in JavaScript with experience in technologies like
         <WordSpinner client:load items={techs} className='min-w-24' />
       </h2>
       <div class='mt-6 flex h-9 gap-6'>
@@ -134,7 +142,7 @@ const projects = [
       </div>
     </div>
     <div
-      class='absolute -top-4 right-0 -z-10 translate-x-8 translate-y-1/2 scale-75 md:top-0 md:-translate-y-1/3 md:translate-x-28 lg:translate-x-12 lg:scale-100'
+      class='absolute -top-4 right-0 -z-10 translate-x-8 translate-y-1/3 scale-50 md:top-5 md:-translate-y-1/3 md:translate-x-32 lg:translate-x-24 lg:scale-90'
     >
       <SplineRender
         sceneUrl='https://prod.spline.design/rNTqNEmg4s2WTWkg/scene.splinecode'
@@ -143,125 +151,88 @@ const projects = [
     </div>
   </div>
   <div
-    class='mt-56 grid gap-6 px-6 md:mt-12 md:grid-cols-[1fr_240px] lg:grid-cols-[1fr_360px] lg:px-0'
+    class='mt-52 grid gap-8 px-6 md:mt-16 md:grid-cols-[1fr_164px] lg:grid-cols-[1fr_248px] lg:pr-0'
   >
-    <div class='flex flex-col gap-3 rounded-2xl bg-surface-700 p-6'>
+    <div
+      class='flex flex-col rounded-2xl border-r border-solid border-zinc-800 pr-14'
+    >
       <WordAnimator
         delay={200}
         client:load
-        className='h-10 font-clvtc text-4xl text-primary'
+        className='mb-4 h-10 font-clvtc text-4xl text-primary'
         words='> About'
         tag='h2'
       />
-      <p class='font-iamono text-base'>
-        Hi there! My name is Sebastian and I’m a developer with over 5 years of
-        work experience using web technologies. I have expertise in
+      <p class='mb-4 font-primary text-base'>
+        I like building things for the web. I'm particularly drawn to frontend
+        development where I can craft user interfaces and implement design
+        systems. I have expertise in
         <UnderlineRainbow>
           <span>React.js</span>
           and
           <span>Node.js</span>
           with
           <span>Typescript</span>.
-        </UnderlineRainbow> Something I enjoy from this field is figuring out simple
-        solutions for difficult problems.
+        </UnderlineRainbow>
       </p>
-      <p class='font-iamono text-base'>Some skills:</p>
-      <ul class='list-inside list-disc font-iamono text-base'>
-        <li>
-          Decent understanding of React: hooks, context, state management etc.
+      <ul class='flex flex-col gap-4'>
+        <li class="before:text-primary before:content-['●']">
+          &nbsp;Currently
+          <ul>
+            <li>
+              ⠀⠀<span class='text-gray-300'>Working remotely for a</span> video surveillance
+              company
+            </li>
+          </ul>
         </li>
-        <li>Next.js with SSR/SSG</li>
-        <li>Mobile apps with React Native</li>
-        <li>GraphQL</li>
-        <li>CSS / Tailwind</li>
-        <li>Databases</li>
-        <li>Git workflows</li>
-        <li>
-          Adherence to and monitoring of best practices through code reviews
-        </li>
-        <li>
-          Clean code (eslint standards and prettier, CI workflow checks, etc)
+        <li class="before:content-['●']">
+          &nbsp;Before
+          <ul>
+            <li>
+              ⠀⠀<span class='text-gray-300'>Working remotely for a</span> B2B e-commerce
+              company
+            </li>
+            <li>
+              ⠀⠀<span class='text-gray-300'>Working for a</span> B2B ERP software
+              company
+            </li>
+            <li class='flex'>
+              ⠀⠀<span class='text-gray-300'>BS in&nbsp;</span>Systems
+              Engineering&nbsp;
+              <span class='mt-1.5 inline-block size-4'
+                ><Fragment set:html={hatIcon} /></span
+              >
+            </li>
+          </ul>
         </li>
       </ul>
-      <p class='font-iamono text-base'>
-        Learning and keeping up to date with new technologies motivates me.
-        Right now I'm learning Python.
-      </p>
     </div>
-    <div class='order-last flex flex-col gap-6 md:order-none'>
-      <div
-        class='relative flex h-fit flex-col gap-3 rounded-2xl bg-surface-700 p-6'
-      >
-        <div class='flex items-end gap-2 text-primary'>
-          <img src={spotifyIcon.src} class='h-9 w-fit object-cover' />
-          <WaveIcon className='h-4 shrink-0' />
-        </div>
+    <div class='order-last mt-12 flex flex-col gap-8 md:order-none'>
+      <div class='relative flex h-fit flex-col gap-3 pt-1'>
         <SpotifyActivity client:load />
       </div>
-      <div class='flex h-fit flex-col rounded-2xl bg-surface-700 p-6'>
+      <div class='flex h-fit flex-col'>
         <PageViews client:load />
       </div>
     </div>
-    <div class='flex flex-col gap-3 rounded-2xl bg-surface-700 p-6'>
-      <WordAnimator
-        delay={200}
-        client:visible
-        className='h-10 font-clvtc text-4xl text-primary'
-        words='> Projects'
-        tag='h2'
-      />
-      <p class='font-iamono'>
-        Personal projects. Check more on my <UnderlineRainbow selector='a'>
-          <a href={atob(githubUrl)} target='_blank' rel='noopener noreferrer'
-            >Github</a
-          >.
-        </UnderlineRainbow>
+    <div class='mt-8 flex flex-col gap-3'>
+      <h2 class='flex font-clvtc text-4xl'>
+        <span>{'>'} Featured&nbsp;</span>
+        <WordAnimator
+          delay={200}
+          client:visible
+          className='h-10 text-primary'
+          words='Projects'
+          tag='span'
+        />
+      </h2>
+      <p class='mb-4 font-primary text-base'>
+        Some personal side projects that I’ve worked on.
       </p>
-      <div class='mt-4 grid gap-x-8 gap-y-6'>
-        {
-          projects.map((project) => {
-            return (
-              <a
-                href={project.url}
-                target='_blank'
-                rel='noopener noreferrer'
-                class='relative w-full'
-              >
-                <div class='grid lg:grid-cols-5'>
-                  <Tilt className='lg:col-span-3'>
-                    <div class='bg-gradient-blend bg-top bg-no-repeat'>
-                      <img
-                        src={project.img.src}
-                        class='min-w-0 rounded-md object-cover'
-                      />
-                    </div>
-                  </Tilt>
-                  <div class='z-10 my-auto -mt-6 flex min-h-36 flex-col rounded-lg bg-surface-800 p-6 shadow-xl lg:col-span-2 lg:-ml-10 lg:mt-auto'>
-                    <h3 class='mb-2 font-clvtc text-xl shadow-surface-700 text-shadow-lg'>
-                      {project.value}
-                    </h3>
-                    <p class='mb-auto font-iamono text-sm shadow-surface-700 text-shadow-lg'>
-                      {project.description}
-                    </p>
-                    <div class='mt-2'>
-                      {project.tags.map((tag) => {
-                        return (
-                          <span class='mr-2 inline-block font-iamono text-xs text-primary'>
-                            #{tag}
-                          </span>
-                        )
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </a>
-            )
-          })
-        }
-      </div>
+      <Button variant='secondary'>View project</Button>
     </div>
   </div>
-  <span class='my-3 block px-6 font-belle text-surface-200'
+  <span class='mb-3 mt-[10%] block px-6 font-belle text-surface-200'
     >&#x3C;/body&#x3E;</span
   >
   <span class='px-6 font-belle text-surface-200 md:px-0'>&#x3C;/html&#x3E;</span

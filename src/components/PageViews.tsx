@@ -16,8 +16,8 @@ export const PageViews = () => {
       {error && <div>Error: {String(error)}</div>}
       {data && (
         <div className='flex flex-col'>
-          <h2 className='mb-1 font-clvtc text-2xl text-primary'>Visits</h2>
-          <p className='flex font-iamono'>
+          <h2 className='mb-1 font-clvtc text-xl text-primary'>Visits</h2>
+          <p className='font-primary flex'>
             Total:{' '}
             <span className='relative ml-auto'>
               <span className='absolute right-0 text-surface-200'>000000</span>
@@ -26,7 +26,7 @@ export const PageViews = () => {
               </span>
             </span>
           </p>
-          <p className='flex font-iamono'>
+          <p className='font-primary flex'>
             Unique:{' '}
             <span className='relative ml-auto'>
               <span className='absolute right-0 text-surface-200'>000000</span>

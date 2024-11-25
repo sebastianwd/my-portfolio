@@ -9,7 +9,6 @@ type RootTheme = {
 
 const themes = {
   ':root': {
-    '--twdc-primary': '#08FDD8',
     '--twdc-grayscale-50': '#FaF5F6',
     '--twdc-grayscale-100': '#E4E3E7',
     '--twdc-grayscale-200': '#C2C0C8',
@@ -18,15 +17,10 @@ const themes = {
     '--twdc-grayscale-500': '#5D5A67',
     '--twdc-grayscale-600': '#3D3B43',
     '--twdc-grayscale-700': '#1D1C20',
-    '--twdc-grayscale-800': '#131215',
-    '--twdc-grayscale-900': '#09090A',
+    '--twdc-grayscale-800': '#161616',
+    '--twdc-grayscale-900': '#0A0A0A',
   },
 } satisfies RootTheme
-
-type ExtendColors = Record<
-  string,
-  Record<string, `var(${keyof (typeof themes)[':root']})`>
->
 
 const themePlugin = plugin(({ addBase }) => {
   addBase(themes)
@@ -51,11 +45,11 @@ export default {
       fontFamily: {
         belle: ['"La Belle Aurore", sans-serif'],
         clvtc: ['clvtc, sans-serif'],
-        iamono: ['"iA Writer Mono", monospace'],
+        primary: ['Inter', 'sans-serif'],
       },
       colors: {
         primary: {
-          DEFAULT: 'var(--twdc-primary)',
+          DEFAULT: '#08FDD8',
         },
         surface: {
           DEFAULT: 'var(--twdc-grayscale-500)',
@@ -70,7 +64,7 @@ export default {
           800: 'var(--twdc-grayscale-800)',
           900: 'var(--twdc-grayscale-900)',
         },
-      } satisfies ExtendColors,
+      },
       animation: {
         swipeUp: 'swipeUp 1.8s infinite ease-in-out',
         marquee: 'marquee linear alternate',

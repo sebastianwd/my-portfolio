@@ -7,6 +7,7 @@ export const underlineColors = [
   'decoration-green-600',
   'decoration-blue-600',
   'decoration-red-600',
+  'decoration-purple-600',
 ]
 
 export const random = <T>(element: T[]): T => {
