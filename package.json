@@ -11,9 +11,6 @@
     "astro": "astro",
     "ncu": "npm-check-updates -i"
   },
-  "engines": {
-    "node": ">=20.9.0 "
-  },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/react": "^4.0.0",
