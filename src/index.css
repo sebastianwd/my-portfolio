@@ -11,27 +11,23 @@
 }
 
 @font-face {
-  font-family: 'iA Writer Mono';
+  font-family: 'Inter';
   font-style: normal;
   font-display: swap;
   font-weight: 400;
   src:
-    url(@fontsource/ia-writer-mono/files/ia-writer-mono-latin-400-normal.woff2)
-      format('woff2'),
-    url(@fontsource/ia-writer-mono/files/ia-writer-mono-latin-400-normal.woff)
-      format('woff');
+    url(@fontsource/inter/files/inter-latin-400-normal.woff2) format('woff2'),
+    url(@fontsource/inter/files/inter-latin-400-normal.woff2) format('woff');
 }
 
 @font-face {
-  font-family: 'iA Writer Mono';
+  font-family: 'Inter';
   font-style: normal;
   font-display: swap;
   font-weight: 700;
   src:
-    url(@fontsource/ia-writer-mono/files/ia-writer-mono-latin-700-normal.woff2)
-      format('woff2'),
-    url(@fontsource/ia-writer-mono/files/ia-writer-mono-latin-700-normal.woff)
-      format('woff');
+    url(@fontsource/inter/files/inter-latin-700-normal.woff2) format('woff2'),
+    url(@fontsource/inter/files/inter-latin-700-normal.woff2) format('woff');
 }
 
 @layer components {
@@ -43,5 +39,18 @@
       transparent 0%,
       theme('colors.surface.700') 100%
     );
+  }
+
+  .shine {
+    border-top: 0.5px solid rgba(255, 255, 255, 0.2);
+    background-image: linear-gradient(to bottom, #ffffff08, #fff0);
+  }
+
+  .shadow-large {
+    box-shadow:
+      0 5px 10px #0000000d,
+      0 15px 30px #00000026,
+      0 20px 40px #00000040,
+      inset 0 -1px #0000001a;
   }
 }

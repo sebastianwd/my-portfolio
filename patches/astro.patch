@@ -1,0 +1,13 @@
+diff --git a/dist/transitions/router.js b/dist/transitions/router.js
+index c0e675db0ba7fbf2605c05bdc91d58169ead6ee4..06aeb1bcd52234ee3bbea0d96e703579aa72ab81 100644
+--- a/dist/transitions/router.js
++++ b/dist/transitions/router.js
+@@ -8,7 +8,7 @@ const updateScrollPosition = (positions) => {
+     replaceState({ ...history.state, ...positions }, "");
+   }
+ };
+-const supportsViewTransitions = inBrowser && !!document.startViewTransition;
++const supportsViewTransitions = false // inBrowser && !!document.startViewTransition;
+ const transitionEnabledOnThisPage = () => inBrowser && !!document.querySelector('[name="astro-view-transitions-enabled"]');
+ const samePage = (thisLocation, otherLocation) => thisLocation.pathname === otherLocation.pathname && thisLocation.search === otherLocation.search;
+ let mostRecentNavigation;

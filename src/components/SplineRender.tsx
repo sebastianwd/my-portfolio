@@ -1,5 +1,4 @@
 import Spline from '@splinetool/react-spline'
-import { Delay } from './WordAnimator'
 import { Suspense } from 'react'
 
 interface Props {

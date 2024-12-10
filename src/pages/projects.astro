@@ -1,0 +1,40 @@
+---
+import ProjectCard from '../components/ProjectCard.astro'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { additionalProjects, projects } from '../utils/constants'
+
+const numGroups = 2
+const groupedProjects = Array.from(
+  { length: numGroups },
+  () => [] as (typeof projects | typeof additionalProjects)[number][]
+)
+
+const allProjects = [...projects, ...additionalProjects]
+
+allProjects.forEach((project, index) => {
+  const groupIndex = index % numGroups
+  groupedProjects[groupIndex].push(project)
+})
+---
+
+<BaseLayout title='Projects'>
+  <div class='colum gap-2 md:columns-2'>
+    {
+      groupedProjects.map((group, index) =>
+        group.map((project) => (
+          <ProjectCard
+            class='mb-2 break-inside-avoid duration-500 animate-in fade-in'
+            title={project.title}
+            media={{
+              url: project.video || project.imgAlt || project.img,
+              type: project.video ? 'video' : 'image',
+            }}
+            link={project.url}
+            repo={project.repo}
+            showAction={!!project.url}
+          />
+        ))
+      )
+    }
+  </div>
+</BaseLayout>
