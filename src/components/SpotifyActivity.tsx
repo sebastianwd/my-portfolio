@@ -15,7 +15,7 @@ export const SpotifyActivity = () => {
   )
 
   return (
-    <Suspense>
+    <>
       {isLoading && <div>Loading...</div>}
       {error && <div>Error: {String(error)}</div>}
       {data && (
@@ -36,13 +36,13 @@ export const SpotifyActivity = () => {
               <div className='my-auto'>
                 <ScrollyText
                   animationClassName='animate-marquee'
-                  className='font-iamono text-sm font-bold'
+                  className='font-iamono mb-0.5 text-sm font-bold'
                   text={String(data.song)}
                   timePerChar={30}
                 />
                 <ScrollyText
                   animationClassName='animate-marquee'
-                  className='font-iamono text-sm'
+                  className='font-iamono text-xs'
                   text={String(data.artist)}
                   timePerChar={30}
                 />
@@ -51,6 +51,6 @@ export const SpotifyActivity = () => {
           </div>
         </>
       )}
-    </Suspense>
+    </>
   )
 }

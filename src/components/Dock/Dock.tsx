@@ -9,14 +9,15 @@ import {
 import homeIcon from '../../assets/home.svg?raw'
 import devtoolIcon from '../../assets/devtool.svg?raw'
 import {
-  AnimatePresence,
   motion,
+  useAnimationControls,
   useMotionValueEvent,
   useSpring,
   useTransform,
 } from 'motion/react'
 import { MouseProvider, useMouse } from './MouseProvider'
 import { Tooltip } from '../Tooltip'
+import { twMerge } from 'tailwind-merge'
 
 const DockItem = ({
   icon,
@@ -24,12 +25,14 @@ const DockItem = ({
   index,
   total,
   title,
+  currentPath,
 }: {
   icon: React.ReactElement
   href: string
   index: number
   total: number
   title: string
+  currentPath: string
 }) => {
   const mouse = useMouse()
 
@@ -75,8 +78,6 @@ const DockItem = ({
     mass: 0.01,
   })
 
-  console.log('1111', dimension.get())
-
   useMotionValueEvent(dimension, 'change', (latest) => {
     if (dock?.isHovered) {
       spring.set(latest)
@@ -85,13 +86,37 @@ const DockItem = ({
     }
   })
 
+  const controls = useAnimationControls()
+
   return (
     <motion.a
-      className='relative flex items-center justify-center rounded-lg text-stone-400 shadow-[0_-1px_hsl(0_0%_0%/0.5)_inset,0_2px_4px_hsl(0_0%_0%_/_0.5),0_1px_hsl(0_0%_100%/0.5)_inset] transition-colors [background:linear-gradient(hsl(0_0%_100%/0.15),#0000),hsl(0_0%_4%)] hover:text-stone-300'
+      className={twMerge(
+        'relative flex cursor-pointer items-center justify-center rounded-lg text-stone-400 shadow-[0_-1px_hsl(0_0%_0%/0.5)_inset,0_2px_4px_hsl(0_0%_0%_/_0.5),0_1px_hsl(0_0%_100%/0.5)_inset] transition-colors [background:linear-gradient(hsl(0_0%_100%/0.15),#0000),hsl(0_0%_4%)] hover:text-stone-300',
+        currentPath === href
+          ? "after:absolute after:-bottom-3 after:text-xs after:content-['•']"
+          : ''
+      )}
       href={href}
       style={{
         width: spring,
         height: spring,
+      }}
+      variants={{
+        initial: {
+          y: 0,
+        },
+        bounce: {
+          y: [0, -40, 0],
+          transition: {
+            duration: 0.3,
+            ease: 'easeOut',
+          },
+        },
+      }}
+      initial='initial'
+      animate={controls}
+      onClick={() => {
+        controls.start('bounce')
       }}
     >
       <Tooltip text={title}>
@@ -118,12 +143,16 @@ const dockItems = [
   },
   {
     icon: <span dangerouslySetInnerHTML={{ __html: devtoolIcon }} />,
-    href: '/',
+    href: '/projects',
     title: 'Projects',
   },
 ]
 
-export const Dock = () => {
+interface DockProps {
+  currentPath: string
+}
+
+export const Dock = (props: DockProps) => {
   const ref = useRef<HTMLDivElement | null>(null)
 
   const [isHovered, setIsHovered] = useState(false)
@@ -139,7 +168,7 @@ export const Dock = () => {
       <DockContext.Provider value={{ isHovered, dock }}>
         <footer className='fixed -bottom-3 left-1/2 z-50 -translate-x-1/2 -translate-y-1/2'>
           <motion.div
-            className='box-content flex h-12 items-end justify-center gap-4 rounded-xl border border-solid border-zinc-800 bg-neutral-800/60 px-4 py-1.5 backdrop-blur-sm'
+            className='box-content flex h-12 items-end justify-center gap-4 rounded-xl border border-solid border-zinc-700 bg-neutral-800/60 px-4 py-1.5 backdrop-blur-sm'
             onHoverStart={() => {
               setIsHovered(true)
             }}
@@ -155,6 +184,7 @@ export const Dock = () => {
                 title={item.title}
                 index={index}
                 total={dockItems.length}
+                currentPath={props.currentPath}
               />
             ))}
           </motion.div>

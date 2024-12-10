@@ -1,0 +1,140 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { twMerge } from 'tailwind-merge'
+import { Icon } from 'astro-icon/components'
+import Button from './Button.astro'
+import { Tooltip } from './Tooltip'
+
+const iconComponents = {
+  tailwind: {
+    icon: 'simple-icons:tailwindcss',
+    title: 'TailwindCSS',
+  },
+  react: {
+    icon: 'simple-icons:react',
+    title: 'React.js',
+  },
+  graphql: {
+    icon: 'simple-icons:graphql',
+    title: 'GraphQL',
+  },
+  nextjs: {
+    icon: 'devicon-plain:nextjs',
+    title: 'Next.js',
+  },
+  sqlite: {
+    icon: 'simple-icons:sqlite',
+    title: 'SQLite',
+  },
+  python: {
+    icon: 'devicon-plain:python',
+    title: 'Python',
+  },
+  docker: {
+    icon: 'simple-icons:docker',
+    title: 'Docker',
+  },
+  jupyter: {
+    icon: 'devicon-plain:jupyter-wordmark',
+    title: 'Jupyter',
+  },
+  ['react-native']: {
+    icon: 'simple-icons:react',
+    title: 'React Native',
+  },
+} as const
+
+interface Props extends HTMLAttributes<'div'> {
+  title: string
+  description: string
+  stack: Readonly<(keyof typeof iconComponents)[]>
+  image: string
+  url?: string
+  orientation?: 'left' | 'right'
+  repo?: string
+}
+
+const {
+  title,
+  description,
+  stack,
+  image,
+  orientation = 'right',
+  url,
+  repo,
+} = Astro.props
+---
+
+<div class='flex flex-col flex-wrap md:flex-row md:flex-nowrap md:gap-5'>
+  {
+    orientation === 'left' ? (
+      <div class='shine flex h-full shrink-0 basis-56 items-center rounded-lg bg-stone-950/50'>
+        <a href={repo} target='_blank' rel='noopener noreferrer'>
+          <img class='shadow-large object-contain' src={image} alt={title} />
+        </a>
+      </div>
+    ) : null
+  }
+  <div
+    class='grow rounded-lg border border-dashed border-neutral-700/75 px-5 py-6'
+  >
+    <h3 class='mb-2 font-clvtc text-2xl text-primary'>{title}</h3>
+    <p class='mb-3 text-sm'>
+      {description}
+    </p>
+    <div class='mb-7 flex'>
+      <p class='mr-2 flex items-center text-sm'>
+        <span class='text-gray-300'>Stack: </span>
+      </p>
+      {
+        stack.map((key) => (
+          <Tooltip
+            text={iconComponents[key].title}
+            client:load
+            className='size-fit px-1'
+          >
+            <Icon
+              class='inline-block size-5 shrink-0'
+              name={iconComponents[key].icon}
+              slot='icon'
+            />
+          </Tooltip>
+        ))
+      }
+    </div>
+    <div class='flex justify-between'>
+      {
+        url ? (
+          <a href={url} target='_blank' rel='noopener noreferrer'>
+            <Button variant='secondary'>
+              View live site
+              <Icon name='radix-icons:external-link' class='ml-1 size-4' />
+            </Button>
+          </a>
+        ) : null
+      }
+      {
+        repo ? (
+          <a
+            href={repo}
+            target='_blank'
+            rel='noopener noreferrer'
+            class='ml-auto flex items-center text-xs underline-offset-2 hover:underline'
+          >
+            <Icon name='simple-icons:github' class='mr-1 inline-block size-4' />
+            Repository
+          </a>
+        ) : null
+      }
+    </div>
+  </div>
+  {
+    orientation === 'right' ? (
+      <div class='shine order-first flex h-full shrink-0 basis-56 items-center rounded-lg bg-stone-950/50 md:order-last'>
+        <a href={repo} target='_blank' rel='noopener noreferrer'>
+          <img class='shadow-large object-contain' src={image} alt={title} />
+        </a>
+      </div>
+    ) : null
+  }
+</div>

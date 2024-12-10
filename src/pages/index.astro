@@ -8,22 +8,18 @@ import graphqlIcon from '../assets/graphql-icon.svg'
 import nodejsIcon from '../assets/nodejs-icon.svg'
 import sqlIcon from '../assets/sql-icon.svg'
 
-import project1Img from '../assets/project1.png'
-import project2Img from '../assets/project2.png'
-import project3Img from '../assets/project3.png'
 import linkedinIcon from '../assets/linkedin-icon.svg'
 import githubIcon from '../assets/github-icon.svg'
 import emailIcon from '../assets/email-icon.svg'
 import { SpotifyActivity } from '../components/SpotifyActivity'
 import Tilt from '../components/Tilt.astro'
 import EdgeAnalytics from '../components/EdgeAnalytics.astro'
-import { isProduction } from '../utils/constants'
+import { isProduction, projects } from '../utils/constants'
 import { Social } from '../components/Social'
 import UnderlineRainbow from '../components/UnderlineRainbow.astro'
 import { PageViews } from '../components/PageViews'
 import hatIcon from '../assets/hat.svg?raw'
-import { WaveIcon } from '../components/icons/WaveIcon'
-import Button from '../components/Button.astro'
+import FeaturedProject from '../components/FeaturedProjectCard.astro'
 
 const pageTitle = "I'm Sebastian"
 
@@ -68,31 +64,6 @@ const links = [
     icon: emailIcon,
   },
 ] as const
-
-const projects = [
-  {
-    value: 'ElevenFM',
-    img: project1Img,
-    description: 'Listen to music for free without ads',
-    url: 'https://github.com/sebastianwd/elevenfm',
-    tags: ['React', 'NodeJS', 'GraphQL'],
-  },
-  {
-    value: 'Pet breed classifier',
-    img: project3Img,
-    description:
-      'Identify dog and cat breeds using Python with Jupyter notebooks',
-    url: 'https://github.com/sebastianwd/fastai-pet-classifier',
-    tags: ['Tensorflow', 'React'],
-  },
-  {
-    value: 'YT Downloader',
-    img: project2Img,
-    description: 'Download videos from youtube',
-    url: 'https://github.com/sebastianwd/youtube-downloader',
-    tags: ['React', 'NodeJS'],
-  },
-]
 ---
 
 <BaseLayout title={pageTitle}>
@@ -165,8 +136,8 @@ const projects = [
       />
       <p class='mb-4 font-primary text-base'>
         I like building things for the web. I'm particularly drawn to frontend
-        development where I can craft user interfaces and implement design
-        systems. I have expertise in
+        development where I can implement user interfaces and design systems. I
+        have expertise in
         <UnderlineRainbow>
           <span>React.js</span>
           and
@@ -193,13 +164,12 @@ const projects = [
               company
             </li>
             <li>
-              ⠀⠀<span class='text-gray-300'>Working for a</span> B2B ERP software
-              company
+              ⠀⠀<span class='text-gray-300'>Working for an</span> ERP software company
             </li>
             <li class='flex'>
               ⠀⠀<span class='text-gray-300'>BS in&nbsp;</span>Systems
               Engineering&nbsp;
-              <span class='mt-1.5 inline-block size-4'
+              <span class='mt-1 inline-block size-5'
                 ><Fragment set:html={hatIcon} /></span
               >
             </li>
@@ -229,7 +199,23 @@ const projects = [
       <p class='mb-4 font-primary text-base'>
         Some personal side projects that I’ve worked on.
       </p>
-      <Button variant='secondary'>View project</Button>
+      <div class='flex flex-col gap-6'>
+        {
+          projects.map((project, index) => {
+            return (
+              <FeaturedProject
+                title={project.title}
+                description={project.description}
+                stack={project.stack}
+                image={project.img}
+                url={project.url}
+                orientation={index % 2 === 0 ? 'right' : 'left'}
+                repo={project.repo}
+              />
+            )
+          })
+        }
+      </div>
     </div>
   </div>
   <span class='mb-3 mt-[10%] block px-6 font-belle text-surface-200'

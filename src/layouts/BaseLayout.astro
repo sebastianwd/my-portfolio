@@ -4,7 +4,8 @@ import '../index.css'
 import 'animate.css'
 import { SEO } from 'astro-seo'
 import metaImg from '../assets/cover.png'
-import iaWriterMono from '@fontsource/ia-writer-mono/files/ia-writer-mono-latin-400-normal.woff2?url'
+import LoadingIndicator from 'astro-loading-indicator/component'
+import mainFont from '@fontsource/inter/files/inter-latin-400-normal.woff2?url'
 
 interface Props {
   title: string
@@ -25,10 +26,18 @@ const { title } = Astro.props
       rel='preload'
       as='font'
       type='font/woff2'
-      href={iaWriterMono}
+      href={mainFont}
+      crossorigin='anonymous'
+    />
+    <link
+      rel='preload'
+      as='font'
+      type='font/woff2'
+      href='/fonts/clvtc.otf'
       crossorigin='anonymous'
     />
     <ViewTransitions fallback='animate' />
+    <LoadingIndicator color='#08FDD8' />
     <SEO
       title={title}
       description='Systems Engineer and Full Stack Web Developer'
@@ -58,10 +67,14 @@ const { title } = Astro.props
       }}
     />
   </head>
-  <body class='container mx-auto lg:max-w-5xl'>
+  <body class='container mx-auto font-primary lg:max-w-5xl'>
     <main class='overflow-clip'>
       <slot />
-      <Dock client:only='react' />
     </main>
+    <Dock
+      client:only='react'
+      transition:persist
+      currentPath={Astro.url.pathname}
+    />
   </body>
 </html>

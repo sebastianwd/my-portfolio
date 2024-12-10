@@ -6,21 +6,23 @@ interface Props extends HTMLAttributes<'button'> {
   variant?: 'primary' | 'secondary' | 'tertiary'
 }
 
-const { variant } = Astro.props
+const { variant, class: className, ...rest } = Astro.props
 
 const variantClasses = {
   primary: 'bg-primary/50',
   secondary: 'bg-neutral-700/50 ',
-  tertiary: 'bg-neutral-800',
+  tertiary: 'bg-neutral-900',
 } as const
 ---
 
 <button
   class={twMerge(
-    'disabled:opacity-80 disabled:cursor-not-allowed shine flex w-fit items-center rounded-lg px-3 py-1.5 text-sm text-neutral-200 active:scale-95 hover:enabled:brightness-110 transition-all',
+    'disabled:opacity-80 disabled:cursor-not-allowed shine flex w-fit items-center justify-center rounded-lg px-4 py-2 text-sm text-neutral-200 active:scale-95 hover:enabled:brightness-110 transition-all',
+    className,
     variantClasses[variant || 'primary']
   )}
   type='button'
+  {...rest}
 >
   <slot />
 </button>
