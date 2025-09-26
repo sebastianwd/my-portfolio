@@ -1,8 +1,10 @@
 import project1Img from '../assets/project1.png'
 import project2Img from '../assets/project2.png'
 import project3Img from '../assets/project3.png'
+import project4Img from '../assets/project4.webp'
 import ghostfmImg from '../assets/ghostfm-pres.png'
 import elevenfmVideo from '../assets/elevenfm-pres.mp4'
+import redditgrabVideo from '../assets/redditgrab-pres.mp4'
 import project3ImgAlt from '../assets/project3-alt.png'
 
 export const isProduction = import.meta.env.PROD
@@ -28,10 +30,21 @@ export const projects = [
     video: elevenfmVideo,
     imgAlt: '',
     description:
-      'A music streaming service that uses YouTube for audio/video and Last.fm/TheAudioDB APIs for artist and album data.',
+      'A functional Spotify clone connected to multiple APIs to deliver universal playlists, lyrics, videoclips, and more.',
     repo: 'https://github.com/sebastianwd/elevenfm',
     url: 'https://elevenfm.com' as string,
     stack: ['tailwind', 'graphql', 'react', 'nextjs', 'sqlite'],
+  },
+  {
+    title: 'RedditGrab',
+    img: project4Img.src,
+    video: redditgrabVideo,
+    imgAlt: project3ImgAlt.src,
+    description:
+      'A Chrome/Firefox extension that allows you to download images and videos from Reddit in an automated way.',
+    repo: 'https://github.com/sebastianwd/redditgrab',
+    url: '',
+    stack: ['react', 'wxt', 'tailwind'],
   },
   {
     title: 'Pet breed classifier',

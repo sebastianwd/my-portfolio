@@ -16,7 +16,22 @@ export const SpotifyActivity = () => {
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && (
+        <div className='animate-pulse'>
+          <div className='flex items-end gap-2 text-primary'>
+            <div className='h-9 w-20 rounded bg-surface-600'></div>
+            <div className='h-5 w-32 rounded bg-surface-600'></div>
+            <div className='h-4 w-4 rounded bg-surface-600'></div>
+          </div>
+          <div className='mt-3 flex gap-3 md:flex-wrap lg:flex-nowrap'>
+            <div className='h-20 w-20 rounded-md bg-surface-600 md:h-auto md:w-full lg:h-[72px] lg:w-20'></div>
+            <div className='flex flex-1 flex-col gap-2'>
+              <div className='h-4 w-3/4 rounded bg-surface-600'></div>
+              <div className='h-3 w-1/2 rounded bg-surface-600'></div>
+            </div>
+          </div>
+        </div>
+      )}
       {error && <div>Error: {String(error)}</div>}
       {data && (
         <>
