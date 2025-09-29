@@ -120,9 +120,12 @@ const DockItem = ({
       }}
     >
       <Tooltip text={title}>
-        {cloneElement(icon, {
-          className: 'transition-colors size-3/5',
-        })}
+        {cloneElement(
+          icon as React.ReactElement<React.SVGProps<SVGSVGElement>>,
+          {
+            className: 'transition-colors size-3/5',
+          }
+        )}
       </Tooltip>
     </motion.a>
   )
