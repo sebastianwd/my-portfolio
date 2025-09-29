@@ -60,10 +60,5 @@
     "tailwindcss-animate": "^1.0.7",
     "vite": "^7.1.7"
   },
-  "pnpm": {
-    "patchedDependencies": {
-      "astro": "patches/astro.patch"
-    }
-  },
   "packageManager": "pnpm@10.17.1"
 }

@@ -4,10 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  astro:
-    hash: 3e63625743fb9ccbd1d54ebf9bf9904f650d71a992dd1cc95cf7d5b34c9595de
-    path: patches/astro.patch
 
 importers:
 
