@@ -1,18 +1,35 @@
 import { useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-
-interface Item {
-  value: string
-  icon: ImageMetadata
-}
+import reactIcon from '../assets/react-icon.svg'
+import graphqlIcon from '../assets/graphql-icon.svg'
+import nodejsIcon from '../assets/nodejs-icon.svg'
+import sqlIcon from '../assets/sql-icon.svg'
 
 interface WordSpinnerProps {
-  items: Array<Item>
   className?: string
 }
 
+const items = [
+  {
+    value: 'React',
+    icon: reactIcon,
+  },
+  {
+    value: 'GraphQL',
+    icon: graphqlIcon,
+  },
+  {
+    value: 'NodeJS',
+    icon: nodejsIcon,
+  },
+  {
+    value: 'SQL',
+    icon: sqlIcon,
+  },
+]
+
 export const WordSpinner = (props: WordSpinnerProps) => {
-  const { items, className } = props
+  const { className } = props
 
   const [active, setActive] = useState(0)
 
