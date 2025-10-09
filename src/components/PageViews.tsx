@@ -12,7 +12,19 @@ export const PageViews = () => {
 
   return (
     <>
-      {isLoading && <div>Loading...</div>}
+      {isLoading && (
+        <div className='animate-pulse'>
+          <div className='mb-2 h-6 w-16 rounded bg-surface-600'></div>
+          <div className='flex'>
+            <div className='mb-1 h-4 w-8 rounded bg-surface-600'></div>
+            <div className='ml-auto h-4 w-12 rounded bg-surface-600'></div>
+          </div>
+          <div className='flex'>
+            <div className='h-4 w-10 rounded bg-surface-600'></div>
+            <div className='ml-auto h-4 w-12 rounded bg-surface-600'></div>
+          </div>
+        </div>
+      )}
       {error && <div>Error: {String(error)}</div>}
       {data && (
         <div className='flex flex-col'>

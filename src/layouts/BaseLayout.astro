@@ -11,8 +11,7 @@ interface Props {
   title: string
 }
 
-import { ViewTransitions } from 'astro:transitions'
-import Navigation from '../components/Navigation.astro'
+import { ClientRouter } from 'astro:transitions'
 import { Dock } from '../components/Dock/Dock'
 const { title } = Astro.props
 ---
@@ -36,7 +35,7 @@ const { title } = Astro.props
       href='/fonts/clvtc.otf'
       crossorigin='anonymous'
     />
-    <ViewTransitions fallback='animate' />
+    <ClientRouter fallback='animate' />
     <LoadingIndicator color='#08FDD8' />
     <SEO
       title={title}

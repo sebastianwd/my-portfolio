@@ -46,17 +46,6 @@ export const projects = [
     url: '',
     stack: ['react', 'wxt', 'tailwind'],
   },
-  {
-    title: 'Pet breed classifier',
-    img: project3Img.src,
-    video: '',
-    imgAlt: project3ImgAlt.src,
-    description:
-      'Project made while learning Python and PyTorch. A pet breed classifier that uses a pre-trained model to classify images of cats and dogs.',
-    repo: 'https://github.com/sebastianwd/fastai-pet-classifier',
-    url: '',
-    stack: ['python', 'jupyter', 'docker'],
-  },
 
   {
     title: 'GhostFM app',
@@ -81,5 +70,16 @@ export const additionalProjects = [
     repo: 'https://github.com/sebastianwd/ez-yt-downloader',
     url: '',
     stack: ['react'],
+  },
+  {
+    title: 'Pet breed classifier',
+    img: project3Img.src,
+    video: '',
+    imgAlt: project3ImgAlt.src,
+    description:
+      'Project made while learning Python and PyTorch. A pet breed classifier that uses a pre-trained model to classify images of cats and dogs.',
+    repo: 'https://github.com/sebastianwd/fastai-pet-classifier',
+    url: '',
+    stack: ['python', 'jupyter', 'docker'],
   },
 ] as const
