@@ -1,10 +1,10 @@
-import project1Img from '../assets/project1.png'
+import project1Img from '../assets/project1.webp'
 import project2Img from '../assets/project2.png'
 import project3Img from '../assets/project3.png'
 import project4Img from '../assets/project4.webp'
 import ghostfmImg from '../assets/ghostfm-pres.png'
 import elevenfmVideo from '../assets/elevenfm-pres.mp4'
-import redditgrabVideo from '../assets/redditgrab-pres.mp4'
+import redditgrabVideo from '../assets/redditgrab-pres.webm'
 import project3ImgAlt from '../assets/project3-alt.png'
 
 export const isProduction = import.meta.env.PROD

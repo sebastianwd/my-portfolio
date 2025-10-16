@@ -47,12 +47,13 @@ const {
       {
         media?.type === 'video' ? (
           <video
-            class='object-contain'
+            class='h-auto w-full object-cover'
             src={media?.url}
             muted
             playsinline
             loop
             autoplay
+            preload='auto'
           />
         ) : (
           <img
