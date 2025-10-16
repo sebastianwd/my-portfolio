@@ -3,6 +3,7 @@ import type { HTMLAttributes } from 'astro/types'
 import Button from './Button.astro'
 import { twMerge } from 'tailwind-merge'
 import { Icon } from 'astro-icon/components'
+import { VideoPlayer } from './VideoPlayer'
 
 interface Props extends HTMLAttributes<'div'> {
   title: string
@@ -46,14 +47,10 @@ const {
     >
       {
         media?.type === 'video' ? (
-          <video
-            class='h-auto w-full object-cover'
+          <VideoPlayer
+            client:load
             src={media?.url}
-            muted
-            playsinline
-            loop
-            autoplay
-            preload='auto'
+            className='h-auto w-full object-cover'
           />
         ) : (
           <img
